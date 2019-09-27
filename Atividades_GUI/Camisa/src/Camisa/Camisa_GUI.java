@@ -15,13 +15,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.MatteBorder;
 
 public class Camisa_GUI {
 	
 	private JFrame jftela = new JFrame();
-	private JLabel lbmatricula = new JLabel("Matrícula");
+	private JLabel lbmatricula = new JLabel("MatrÃ­cula");
 	private JLabel lbtamanho = new JLabel("Tamanho da Camisa");
 	private JLabel lbcor = new JLabel("Selecione a cor da camisa:");
+	private JLabel lbcorSelecionada = new JLabel();
 	private JLabel lbquantidade = new JLabel("Quantidade de camisas");
 	private ImageIcon iconBranca = new ImageIcon(getClass().getResource("white.png"));
 	private ImageIcon iconAzul = new ImageIcon(getClass().getResource("blue.png"));
@@ -59,7 +61,7 @@ public class Camisa_GUI {
 		
 		this.panel1.setSize(600, 480);
 		this.panel1.setLayout(null);
-		this.panel1.setBackground(Color.DARK_GRAY);
+		this.panel1.setBackground(Color.GRAY);
 		this.panel1.add(this.lbmatricula); this.panel1.add(this.txtmatricula);
 		this.panel1.add(combo); this.panel1.add(this.lbtamanho);
 		this.panel1.add(this.lbcor); this.panel1.add(lbbranca);
@@ -96,6 +98,7 @@ public class Camisa_GUI {
 		this.lbquantidade.setFont(new Font("Verdana", 1, 12));
 		
 		this.txtmatricula.setBounds(120,100,80,30);
+		//this.txtmatricula.MaxLength = 10;
 		this.txtquantidade.setBounds(230,300,40,30);
 		
 		this.btnsolicitar.setBounds(200,370,200,40);
@@ -115,42 +118,99 @@ public class Camisa_GUI {
 					matricula = Integer.parseInt(txtmatricula.getText());
 					quantidade = Integer.parseInt(txtquantidade.getText());
 					
-					if(combo.getSelectedItem() != null) {
-						tamanho = (String) combo.getSelectedItem();
+					if(corCamisa == null || combo.getSelectedItem() == null) {
+						JOptionPane.showMessageDialog(null, "Prencha todos os campos!");
 					}else{
-						JOptionPane.showMessageDialog(null, "Selecione o tamanho da camisa!");
-					}
-					
-					if(corCamisa == null) {
-						JOptionPane.showMessageDialog(null, "Selecione a cor da camisa!");
+						if(combo.getSelectedItem() != null) {
+							tamanho = (String) combo.getSelectedItem();
+						}
 					}
 				}catch(NumberFormatException ex) {
+					if(txtmatricula.getText() == null){
+						txtmatricula.setBorder(new MatteBorder(2, 2, 2, 2, Color.RED));
+					}
 					JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
 				}
 				
-				JOptionPane.showMessageDialog(null, "Solicitação feita com sucesso!");
+				//JOptionPane.showMessageDialog(null, "SolicitaÃ§Ã£o feita com sucesso!");
 				System.out.println(matricula +":"+tamanho+":"+corCamisa);
 			}
 		});
 		
 	}
 	
+	//manipulacao das labels das cores
 	public void clique(JLabel label){
 		label.addMouseListener(new MouseAdapter(){
+			
+			//quando passar o mouse sobre a label
+			@Override
+            public void mouseEntered(MouseEvent e) {
+                JLabel label = (JLabel) e.getSource();
+                if(label != lbcorSelecionada){
+                	label.setBorder(new MatteBorder(1, 1, 3, 3, Color.BLACK));
+                }
+            }
+			
+			//quando o mouse sair de cima da label
+			@Override
+            public void mouseExited(MouseEvent e) {
+                JLabel label = (JLabel) e.getSource();
+                if(label != lbcorSelecionada){
+                	label.setBorder(null);
+                }
+            }
+			
+			//quando clicar numa label
 			@Override
 			public void mouseClicked(MouseEvent e){
-				if(label.equals(lbbranca))
+				if(label.equals(lbbranca)){
+					lbbranca.setBorder(new MatteBorder(3, 3, 3, 3, Color.GREEN));
 					corCamisa = "0000";
-				if(label.equals(lbazul))
+					lbcorSelecionada = lbbranca;
+					controleLabel();
+				}else if(label.equals(lbazul)){
+					lbazul.setBorder(new MatteBorder(3, 3, 3, 3, Color.GREEN));
 					corCamisa = "1100";
-				if(label.equals(lbvermelha))
+					lbcorSelecionada = lbazul;
+					controleLabel();
+				}else if(label.equals(lbvermelha)){
+					lbvermelha.setBorder(new MatteBorder(3, 3, 3, 3, Color.GREEN));
 					corCamisa = "0110";
-				if(label.equals(lbverde))
+					lbcorSelecionada = lbvermelha;
+					controleLabel();
+				}else if(label.equals(lbverde)){
+					lbverde.setBorder(new MatteBorder(3, 3, 3, 3, Color.GREEN));
 					corCamisa = "1010";
-				if(label.equals(lbamarela))
+					lbcorSelecionada = lbverde;
+					controleLabel();
+				}else if(label.equals(lbamarela)){
+					lbamarela.setBorder(new MatteBorder(3, 3, 3, 3, Color.GREEN));
 					corCamisa = "0010";
+					lbcorSelecionada = lbamarela;
+					controleLabel();
+				}
 			}
 		});
+	}
+	
+	//deixa as labels nao selecionadas sem bordas
+	public void controleLabel(){
+		if(lbamarela != lbcorSelecionada){
+			lbamarela.setBorder(null);
+		}
+		if(lbazul != lbcorSelecionada){
+			lbazul.setBorder(null);
+		}
+		if(lbbranca != lbcorSelecionada){
+			lbbranca.setBorder(null);
+		}
+		if(lbverde != lbcorSelecionada){
+			lbverde.setBorder(null);
+		}
+		if(lbvermelha != lbcorSelecionada){
+			lbvermelha.setBorder(null);
+		}
 	}
 	
 	public static void main(String[] args) {
