@@ -1,2 +1,2 @@
 # Programacao-Aplicada
-Repositório para os exercícios de Programação Aplicada
+Repositório para os exercícios da disciplina Programação Aplicada
