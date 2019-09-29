@@ -130,20 +130,19 @@ public class Camisa_GUI {
 
 		//focus nos jtextfields, uma numeracao de exemplo sera exibida
 		txtmatricula.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) { //quando o cursor focar no jtextfield
-                if(txtmatricula.getText().equals("0000000000")){
-                    txtmatricula.setText(""); //troca o texto para nulo
-                }
-            }
-            @Override
-            public void focusLost(FocusEvent e) { //quando o cursor sair do jtextfield
-            	if(txtmatricula.getText().equals("")) {
-            		txtmatricula.setText("0000000000"); //troca o texto para o exemplo
-            	}
-            }
-
-        });
+			@Override
+			public void focusGained(FocusEvent e) { //quando o cursor focar no jtextfield
+				if(txtmatricula.getText().equals("0000000000")){
+					txtmatricula.setText(""); //troca o texto para nulo
+				}
+			}
+			@Override
+			public void focusLost(FocusEvent e) { //quando o cursor sair do jtextfield
+				if(txtmatricula.getText().equals("")) {
+					txtmatricula.setText("0000000000"); //troca o texto para o exemplo
+				}
+			}
+		});
 		//botao solicitar
 		this.btnsolicitar.setBounds(190,370,200,40);
 		this.btnsolicitar.setFont(new Font("Verdana", 1, 18)); //alterando fonto do botao
@@ -224,25 +223,24 @@ public class Camisa_GUI {
 	//manipulacao das labels das cores que recebe uma label por parametro
 	public void clique(JLabel label){
 		label.addMouseListener(new MouseAdapter(){
-			
 			//quando passar o mouse sobre a label ira gerar uma borda de relevo
 			@Override
-            public void mouseEntered(MouseEvent e) {
-                JLabel label = (JLabel) e.getSource();
-                if(label != lbcorSelecionada){
-                	label.setBorder(new MatteBorder(1, 1, 3, 3, Color.BLACK));
-                }
-            }
+			public void mouseEntered(MouseEvent e) {
+				JLabel label = (JLabel) e.getSource();
+				if(label != lbcorSelecionada){
+					label.setBorder(new MatteBorder(1, 1, 3, 3, Color.BLACK));
+				}
+			}
 			
 			//quando o mouse sair de cima da label voltara a ficar sem bordas
 			@Override
-            public void mouseExited(MouseEvent e) {
-                JLabel label = (JLabel) e.getSource();
-                if(label != lbcorSelecionada){
-                	label.setBorder(null);
-                }
-            }
-			
+			public void mouseExited(MouseEvent e) {
+				JLabel label = (JLabel) e.getSource();
+				if(label != lbcorSelecionada){
+					label.setBorder(null);
+				}
+			}
+
 			//quando clicar numa label ira adicionar uma borda para mostrar que esta selecionada
 			@Override
 			public void mouseClicked(MouseEvent e){
@@ -302,13 +300,12 @@ public class Camisa_GUI {
 		//armazenando o caminho do arquivo para poder escrever, true para nao sobrescrever toda vez que usar o metodo
 		FileWriter arquivo = new FileWriter(usuario+"\\Desktop\\Camisas.txt", true);
 		PrintWriter gravarArquivo = new PrintWriter(arquivo); 
-		
+
 		gravarArquivo.println(texto); //gravando o texto
 		
 		arquivo.close(); //fechando o arquivo
 		gravarArquivo.close();
-		System.out.println("Arquivos gravado comm sucesso!"); //mensagem de confirmacao
-		
+		System.out.println("Arquivos gravado comm sucesso!"); //mensagem de confirmacao	
 	}
 	
 	//metodo para tirar as bordas vermelhas quando gerar erro
